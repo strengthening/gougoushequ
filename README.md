@@ -4,7 +4,8 @@
 *    django
 *    MySQL-python
 *    requests
-*    mod_wsgi        #apt-get install libapache2-mod-wsgi
+*    mod_wsgi
+<pre><code>#apt-get install libapache2-mod-wsgi</code></pre>
 *    pycrypto 
 *    memcached
 *    dogecoin-python #download from git   https://github.com/jcsaaddupuy/dogecoin-python
