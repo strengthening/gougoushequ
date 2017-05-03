@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>获取多吉红包成功</title>
+    {% load staticfiles %}
+    <!-- Bootstrap -->
+    <!--link href="{% static "css/zepto.js" %}" rel="stylesheet"-->
+    <link href="{% static "css/reset.css" %}" rel="stylesheet">
+    <link href="{% static "css/my.css" %}" rel="stylesheet"/>
+    <style>
+      body {
+        font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+      }
+    </style>
+  </head>
+  <body style="">
+  <div class="container">
+  <h1>恭喜！成功抢到{{hbdnum}}个Doge！</h1>
+  <p>安全原因，本网页不提供直接提Dogecoin服务。请关注“吾爱doge”微信公众账号提取您的Dogecoin,扫描下方二维码即可关注，在微信中长按下方二维码图片然后点击识别二维码选项即可关注。</p>
+  <img src="{% static "img/qr_code.jpg" %}" />
+  </div>
+  <script src="{% static "js/zepto.js" %}"></script>
+  <script>
+
+  </script>
+  </body>
+</html>
+

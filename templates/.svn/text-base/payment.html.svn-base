@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>吾爱doge</title>
+    {% load staticfiles %}
+    <!-- Bootstrap -->
+    <!--link href="{% static "css/zepto.js" %}" rel="stylesheet"-->
+    <link href="{% static "css/reset.css" %}" rel="stylesheet">
+    <link href="{% static "css/my.css" %}" rel="stylesheet"/>
+    <style>
+      body {
+        font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+      <div class="address">
+          <!--h1>吾爱doge</h1-->
+          <h1 style="padding:10px 0;border-left:10px solid #F1C40F;border-bottom:1px solid #eee;font-size:20px;">您的Dogecoin收款地址</h1>
+          <p style="margin:20px 0;text-align:center;">{{ address }}</p>
+          <div style="border:1px solid #F1C40F;border-radius:5px;margin:20px 10px;padding:10px;">
+              <p>【TIPS】</p>
+              <p>长按上方地址，弹出操作框点击复制，既可以复制您的Doge地址</p>
+          </div>
+          <h1 style="padding:10px 0;border-left:10px solid #F1C40F;border-bottom:1px solid #eee;font-size:20px;">您的Dogecoin二维码收款地址</h1>
+          <div>
+          <img style="max-width:100%;height:auto;border:0;display:block;vertical-align:middle;margin:0 auto;" src="/static/qrcode/{{address}}.png"></img>
+          </div>
+          <div style="border:1px solid #F1C40F;border-radius:5px;margin:20px 10px;padding:10px;">
+              <p>【TIPS】</p>
+              <p>使用任何一款Doge钱包扫描本二维码都可以得到，你的收款地址</p>
+          </div>
+
+      </div>
+  <script src="{% static "js/zepto.js" %}"></script>
+  <script>
+  function onBridgeReady(){
+    WeixinJSBridge.call('hideOptionMenu');
+  }
+
+  if (typeof WeixinJSBridge == "undefined"){
+    if( document.addEventListener ){
+        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    }else if (document.attachEvent){
+        document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    }
+  }else{
+    onBridgeReady();
+  }
+
+
+  </script>
+  </body>
+</html>

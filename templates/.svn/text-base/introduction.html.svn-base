@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>吾爱Doge</title>
+    {% load staticfiles %}
+    <!-- Bootstrap -->
+    <!--link href="{% static "css/zepto.js" %}" rel="stylesheet"-->
+    <link href="{% static "css/reset.css" %}" rel="stylesheet">
+    <link href="{% static "css/my.css" %}" rel="stylesheet"/>
+  </head>
+  <body>
+      <div class="intro">
+      <h2>关于Doge</h2>
+      <p>“Doge”发音跟中文中的“多吉”相似。“Doge”这个概念是地地道道的舶来品，兴起于国外的互联网，它的原型是一条叫Kabosu的日本母柴犬，网络上恶搞ps掀起了一股DOGE狂潮。逐步的这种有趣的图像逐渐成为一种流行的表情，来供大家娱乐。</p>
+      <img src="{% static "img/intro0.jpg" %}"></img> 
+      <p>原图主要特点除了这只“可爱”的Doge，还有这种用五颜六色的Comic Sans MS字体来表达这只狗的心理活动的英文，而且这种Broken English深深地戳到了美帝人民的笑点！就像最近大家都喜欢说“笑cry、吓die”之类的词一样，美帝人民也觉得这种5 words broken English 很好玩，因而常常学着这种方式说话。</p>
+      <p>这幅图一直在美帝的社交网络上流传着，围绕着这只Doge的笑话也是一直层出不穷。但是Doge又是怎么一夜爆红的呢？答案是一次“爆吧”事件。</p>
+      <p>爆吧的一方主角，4chan，是一个匿名的社交论坛。里边的/b/板块常年以黑各路明星为乐，当然了最著名的一次就是iphone云服务被黑，4chan上流出了各种艳照的那次。。你应该知道了吧</p>
+      <p>2013年8月的某天，4chan的网友们大概是闲的蛋疼吧，他们决定用Doge的图片塞满reddit论坛的r/Murica这个版块。r这个版块呢，大概就像我们的百度贴吧之类的吧，特别崇尚言论自由。既然言论自由，那么Doge大军就来啦！</p>
+      <img src="{% static "img/intro1.jpg" %}"></img>
+      <p>于是……那天的r就变成了这样：</p>
+      <img src="{% static "img/intro2.jpg" %}"></img>
+      <p>到第二天中午的时候，几乎所有的图片都被P上了Doge的头……</p>
+      <p>对此，r版块的管理员表示："Is this really supposed to be a /b/ raid of some sort? If so... weakest... raid... ever. Get your shit together /b/tards."随后r版块删除了所有和Doge有关的爆吧贴。</p>
+      <p>这次爆吧事件却打响了Doge走红的第一枪！Google Trends显示，Doge这个词的搜索量在十月出现了一个爆炸性的增长。11月的时候，网上已经到处都是Doge的身影了：</p>
+      <img src="{% static "img/intro3.jpg" %}"></img>
+      <img src="{% static "img/intro4.jpg" %}"></img>
+      
+      <p>随后，Google也来参了一脚，给YouTube加上了一个Doge的彩蛋。当搜索Doge的时候，整个页面的字体就会变成Comic Sans MS字体。而且这个彩蛋一直保留至今，在YouTube上搜索“doge meme”网页字体就会变成五颜六色的Comic Sans MS</p>
+      <img src="{% static "img/intro5.jpg" %}"></img>
+      <p>至此，Doge可以说已经占领了互联网了。多年来被喵星人统治的互联网终于出现了一个汪星人的Superstar，真是为汪星人争了一口气啊！那些曾经满嘴LOLcat的人，现在纷纷疯狂地喊着WOW！Doge！各路围绕着这只柴犬的笑话、PS、搞笑动图层出不穷，美帝人民表示笑点都被戳烂了。</p>
+      <p>在国内，同样也能看到很多关于Doge的P图，充斥在QQ、微信、微博等社交网络上，并且在2014年新浪微博加入了Doge的表情。</p>
+      <h2>关于Dogecoin</h2>
+      
+      <p>Dogecoin，中文名“多吉币”也叫“狗狗币”，是一种类似于比特币的电子货币，曾经一度总币值位列电子货币的第三位，应该说Dogecoin的产生、发展、风靡都借助了网络上Doge文化。</p>
+      <p>在美国，一位前IBM程序员Billy Markus一直想创造一种电子货币，可以让这种电子货币真正流通起来，而不像比特币更多的是用来投机或者投资。于此同时，在澳大利亚，一位Adobe公司的市场营销专家Jackson Palmer，一直迷恋于电子货币。当他在看到Doge这个词的时候突发奇想，于是在twitter上推文：投资Dogecoin，将是下一个大机遇。</p>
+	  <p>于是Jackson Palmer注册了www.dogecoin.com这个域名，在他注册了这个域名不久，Billy Markus知道了这件事，于是发推文表达合作意向。两人一拍即合，于2013年12月12日推出Dogecoin，“比特币”和“Doge”两个词汇注定会引起不小的轰动，在再加上网友们的煽风点火，Dogecoin就这样火了。</p>
+      <P>进入2014年，Dogecoin不仅致力于他最初创立时的目标让这种电子货币流通起来，而且在它的助力下做了不少慈善工作，比如最初的资助牙买加雪橇队参加冬奥会，到最近的帮助非洲儿童饮用卫生水的项目。这只柴犬不仅仅是一个玩笑了，它也在通过行动来帮助着人们。</P>
+	  
+	  </div>
+  <script src="{% static "js/zepto.js" %}"></script>
+  <script>
+  function onBridgeReady(){
+    //alert('fsdfsd');
+    WeixinJSBridge.call('hideToolbar');
+  }
+
+  if (typeof WeixinJSBridge == "undefined"){
+    if( document.addEventListener ){
+        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    }else if (document.attachEvent){
+        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    }
+  }else{
+    onBridgeReady();
+  }
+  </script>
+  </body>
+</html>
+

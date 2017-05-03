@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>多吉限时红包，有限多吉，无限多福！快来抢吧！！</title>
+    {% load staticfiles %}
+    <!-- Bootstrap -->
+    <!--link href="{% static "css/zepto.js" %}" rel="stylesheet"-->
+    <link href="{% static "css/reset.css" %}" rel="stylesheet">
+    <link href="{% static "css/my.css" %}" rel="stylesheet"/>
+  </head>
+  <body>
+  <div class="hbsuccess">
+    {% ifequal ismine 1 %}
+      <div>
+        <p>TIPS</p>
+        <p>成功生成了红包！赶紧点击右上方按钮发送给微信、QQ好友或者发布到朋友圈吧！分享后此提示不会出现！！</p>
+      </div>
+    {% endifequal %}
+    <h1 class="title">多吉限时红包！来了！</h1>
+    <p><span>{{nickname}}</span>将总额为<span>{{hbsum}}</span>的多吉币塞入了<span>{{hbnum}}</span>个多吉限时红包，并送上祝福：</p>
+    <p>{{hbgreetings}}</p>
+    <div class="wxweb">
+    <a href="{{gethburl}}"><button>点我抢红包！</button></a>
+    <!--p>{{gethburl}}</p--> 
+    <p class="qrcode-tip">或者长按下方图片，点击识别二维码抢红包</p>
+    </div>
+    <div class="notwxweb">
+    <p>用微信扫描下方二维码即可抢红包！！如果未关注“吾爱doge”微信公众账号，点击关注即可以抢到红包</p>
+    </div>
+    <img  src="{{hbqrcodeurl}}"/>
+  </div>
+  <script src="{% static "js/zepto.js" %}"></script>
+  <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <script>
+  wx.config({
+    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出>，仅在pc端时才会打印。
+    appId: '{{jsconfig.appId}}', // 必填，公众号的唯一标识
+    timestamp:{{jsconfig.timestamp}} , // 必填，生成签名的时间戳
+    nonceStr: '{{jsconfig.nonceStr}}', // 必填，生成签名的随机串
+    signature: '{{jsconfig.signature}}',// 必填，签名，见附录1
+    jsApiList: ['showMenuItems','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+  });
+
+  wx.ready(function(){
+    //wx.showOptionMenu();
+    //wx.showAllNonBaseMenuItem();
+    //wx.checkJsApi({
+    //  jsApiList: [
+    //    'getNetworkType',
+    //  ],
+    //  success: function (res) {
+    //    alert(JSON.stringify(res));
+    //  }
+    //});
+    wx.showMenuItems({
+        menuList: ['menuItem:share:timeline','menuItem:share:appMessage','menuItem:share:qq','menuItem:share:weiboApp','menuItem:favorite','menuItem:share:facebook','menuItem:share:QZone','menuItem:copyUrl'] // 要显示的菜单项，所有menu项见附录3
+    });
+    wx.onMenuShareTimeline({
+      title: '{{nickname}}发的多吉红包', // 分享标题
+      link: location.href.split('?')[0], // 分享链接
+      imgUrl: 'http://www.5idoge.com/static/img/hongbao_conf.png', // 分享图标
+      success: function () { 
+          // 用户确认分享后执行的回调函数
+          alert('分享成功');
+      },
+      cancel: function () { 
+          // 用户取消分享后执行的回调函数
+      }
+    });
+    wx.onMenuShareAppMessage({
+      title: '{{nickname}}发的多吉红包', // 分享标题
+      desc: '{{hbgreetings}}', // 分享描述
+      link: location.href.split('?')[0], // 分享链接
+      imgUrl: 'http://www.5idoge.com/static/img/hongbao_conf.png', // 分享图标
+      //type: '', // 分享类型,music、video或link，不填默认为link
+      //dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+      success: function () { 
+          // 用户确认分享后执行的回调函数
+          alert('分享成功');
+      },
+      cancel: function () { 
+          // 用户取消分享后执行的回调函数
+      }
+    });
+
+    wx.onMenuShareQQ({
+        title: '{{nickname}}发的多吉红包', // 分享标题
+        desc: '{{hbgreetings}}', // 分享描述
+        link: location.href.split('?')[0], // 分享链接
+        imgUrl: 'http://www.5idoge.com/static/img/hongbao_conf.png', // 分享图标
+        success: function () { 
+           // 用户确认分享后执行的回调函数
+           alert('分享成功');
+        },
+        cancel: function () { 
+           // 用户取消分享后执行的回调函数
+        }
+    });  
+
+
+  });
+
+
+  $(document).ready(function(){
+    if(isWeixinBrowser()){
+      $(".notwxweb").hide();
+
+    }else{
+      $(".wxweb").hide();
+    }
+
+
+  });
+
+  function isWeixinBrowser(){
+    var ua = navigator.userAgent.toLowerCase();
+    return (/micromessenger/.test(ua)) ? true : false ;
+  }
+
+  //alert(location.href.split('#')[0])
+  </script> 
+  </body>
+</html>
+
+
+

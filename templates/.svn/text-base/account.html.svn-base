@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>吾爱doge</title>
+    {% load staticfiles %}
+    <!-- Bootstrap -->
+    <!--link href="{% static "css/zepto.js" %}" rel="stylesheet"-->
+    <link href="{% static "css/reset.css" %}" rel="stylesheet">
+    <link href="{% static "css/my.css" %}" rel="stylesheet"/>
+  </head>
+  <body>
+      <div class="address">
+          <h1 style="padding:10px 0;border-left:10px solid #F1C40F;border-bottom:1px solid #eee;font-size:20px;">账户信息</h1>
+          <p style="margin:10px 10px;">账户可用额度：{{bal}}&nbsp;Doge</p>
+          <p style="margin:10px 10px;">账户冻结额度：{{lockamount}}&nbsp;Doge</p>
+          <p style="margin:10px 10px;">账户未确认额度：{{unconbal}}&nbsp;Doge</p>
+          <!--p>{{bal}}</p-->
+          <h1 style="padding:10px 0;border-left:10px solid #F1C40F;border-bottom:1px solid #eee;font-size:20px;">Dogecoin收款地址</h1>
+          <p style="margin:20px 0;text-align:center;">{{ address }}</p>
+          <div style="border:1px solid #F1C40F;border-radius:5px;margin:20px 10px;padding:10px;">
+              <p>【TIPS】</p>
+              <p>长按上方地址，弹出操作框点击复制，既可以复制您的Doge地址</p>
+          </div>
+          <h1 style="padding:10px 0;border-left:10px solid #F1C40F;border-bottom:1px solid #eee;font-size:20px;">Dogecoin二维码收款地址</h1>
+          <div>
+          <img style="max-width:100%;height:auto;border:0;display:block;vertical-align:middle;margin:0 auto;" src="/static/qrcode/{{address}}.png"></img>
+          </div>
+          <div style="border:1px solid #F1C40F;border-radius:5px;margin:20px 10px;padding:10px;">
+              <p>【TIPS】</p>
+              <p>使用任何一款Doge钱包扫描本二维码都可以得到，你的收款地址</p>
+          </div>
+
+      </div>
+  <script src="{% static "js/zepto.js" %}"></script>
+  <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <script>
+  wx.config({
+    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: '{{jsconfig.appId}}', // 必填，公众号的唯一标识
+    timestamp:{{jsconfig.timestamp}} , // 必填，生成签名的时间戳
+    nonceStr: '{{jsconfig.nonceStr}}', // 必填，生成签名的随机串
+    signature: '{{jsconfig.signature}}',// 必填，签名，见附录1
+    jsApiList: ['hideOptionMenu'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+  });
+
+  wx.ready(function(){
+    wx.hideOptionMenu();
+    //wx.showAllNonBaseMenuItem();
+  });
+  </script>
+  </body>
+</html>

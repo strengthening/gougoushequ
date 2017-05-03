@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>多吉红包-吾爱doge</title>
+    {% load staticfiles %}
+    <!-- Bootstrap -->
+    <!--link href="{% static "css/zepto.js" %}" rel="stylesheet"-->
+    <link href="{% static "css/reset.css" %}" rel="stylesheet">
+    <link href="{% static "css/my.css" %}" rel="stylesheet"/>
+  </head>
+  <body style="background:#EEE;">
+    <div class="container">
+      <div class="sendhb">
+        <form  action="/weixin/sendhb"  method="POST">
+            <!--div class="form-left">
+            <p>红包总额</p>
+            </div-->
+            <div class="form-input">
+              <label class="form-input-left">总额</label>
+              <input class="hbsum" type="number"  step="0.00000001"  name="hbsum" />
+              <label class="form-input-right">Ð</label>
+            </div>
+            <div class="form-input">          
+              <label class="form-input-left">个数</label>
+              <input class="hbnum" type="number" name="hbnum" />
+              <label class="form-input-right">个</label>
+              
+            </div>
+            <p class="tip">最多200个红包,平均每个红包要大于1Ð</p>
+            <input class="entext"  type="hidden" name="entext"  value="{{entext}}"/>
+            <div class="form-input">
+                <label class="form-input-left">留言</label>
+                <input class="hbgreetings" type="text" placeholder="有限多吉，无限多福！" value="" name="hbgreetings"></input>
+            </div>
+            <p class="tip">最多140个汉字</p>
+            <div class="form-radio">
+              <label class="radio"><input type="radio" name="hbtype" value="temporary" checked>限时多吉红包</input></label>
+              <label class="radio"><input type="radio" name="hbtype" value="eternal">拼手气多吉红包</input></label>          
+            </div>        
+            <div class="hbtype-tips">
+              <div class="tips-corner"></div>
+              <p class="active">限时多吉红包，30分钟的有效期，越先抢到红包的用户，得到大数额的概率越大。发布多吉限时红包之后，系统会锁定与红包总额相等的Doge，如果30分钟之后红包还有剩余，被锁定的Doge会自动返回到您的账户中。</p>
+              <p>拼手气多吉红包，24小时的有效期，抢到doge的数额是完全随机的。发布拼手气多吉红包之后，系统会锁定与红包总额相等的Doge，如果24小时之后红包还有剩余，被锁定的Doge会自动返回到您的账户中。</p>
+            </div>
+            {% if errmsg %}
+            <div>{{errmsg}}</div>
+            {% endif %}
+            <input id="sendhb" type="submit" value="塞进红包" />
+        <form>
+      </div>
+    </div>
+    <script src="{% static "js/zepto.js" %}"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+      $(document).ready(function(){
+        $("#sendhb").click(function(e){
+          var hbsum = $(".hbsum").val()
+          var hbnum = $(".hbnum").val()
+          var hbtype = $(".hbtype").val()
+          var hbgreetings = $(".hbgreetings").val()
+
+          if(hbsum.length == 0){
+            alert("红包里面连1doge都没有呀！");
+            e.preventDefault();
+            return;
+          }
+
+          if(isNaN(parseFloat(hbsum)) || parseFloat(hbsum)<=0){
+            alert('主人，你确定这是正确的数字什么啊');
+            e.preventDefault();
+            return;
+          }
+          if(hbnum.length==0){
+            alert('主人，你忘记写红包份数了！');
+            e.preventDefault();
+            return;
+          }
+          if(isNaN(parseInt(hbnum,10))|| parseInt(hbnum,10)<=0){
+            alert('主人，红包份数必须是大于0的整数！');
+            e.preventDefault();
+            return;
+          }
+          if(parseFloat(hbsum)/parseInt(hbnum,10)<=1){
+            alert('主人，每个钱包里面放的doge太少了！显得咱不够土豪啊！');
+            e.preventDefault();
+            return;
+          }
+          if(hbnum>200){
+            alert('主人，一次最多分成200份红包！！');
+            e.preventDefault();
+            return;
+          }
+
+          if(hbgreetings==""||hbgreetings==undefined){
+            $(".hbgreetings").val("有限多吉，无限多福！");
+          }
+        });
+
+        $(".form-radio input").each(function(index,elem){
+          $(elem).click(function(){
+            if($($(".hbtype-tips p").get(index)).hasClass('active')){
+              return;
+            }else{
+              $($(".hbtype-tips p").get(index)).addClass('active');
+              $($(".hbtype-tips p").get(1-index)).removeClass('active');
+              (index==0)?$(".tips-corner").css('left','5%'):$(".tips-corner").css('left','55%');
+            }
+            //
+          })
+        });
+      });
+      wx.config({
+          debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          appId: '{{jsconfig.appId}}', // 必填，公众号的唯一标识
+          timestamp:{{jsconfig.timestamp}} , // 必填，生成签名的时间戳
+          nonceStr: '{{jsconfig.nonceStr}}', // 必填，生成签名的随机串
+          signature: '{{jsconfig.signature}}',// 必填，签名，见附录1
+          jsApiList: ['hideMenuItems'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+      //alert(location.href.split('#')[0]);
+      wx.ready(function(){
+          //wx.hideOptionMenu();
+          //wx.showAllNonBaseMenuItem();
+          wx.hideMenuItems({
+              menuList: ['menuItem:share:timeline','menuItem:share:appMessage','menuItem:share:qq','menuItem:share:weiboApp','menuItem:favorite','menuItem:share:facebook','menuItem:share:QZone','menuItem:copyUrl']
+          })
+      });
+
+
+    </script>
+  </body>
+</html>
+
+
+

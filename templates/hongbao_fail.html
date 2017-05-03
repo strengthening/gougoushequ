@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}吾爱doge{% endblock %}
+
+{% load staticfiles %}
+
+{% block content %}
+  <div class="container">
+  <div class="hongbao-fail" style="background:#e3dbbe;text-align:right;">
+    <img src="{% static "img/dogeface-cry.gif" %}">
+  </div>
+  <h1>抢红包失败！{{errmsg}}</h1>
+  <div class="notwxweb">
+  <p>关注微信公众账号“吾爱doge”，发现更多惊喜吧！</p>
+  <img src="{% static "img/qr_code.jpg" %}" />
+  </div>
+  </div>
+{% endblock %}
+{% block myscript %}
+<script>
+  $(document).ready(function(){
+    if(isWeixinBrowser()){
+      $(.notwxweb).hide();
+    }
+  });
+
+  function isWeixinBrowser(){
+    var ua = navigator.userAgent.toLowerCase();
+    return (/micromessenger/.test(ua)) ? true : false ;
+  }
+</script>
+{% endblock %}
+

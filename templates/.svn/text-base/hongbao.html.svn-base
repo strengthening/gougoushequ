@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}多吉红包{% endblock %}
+{% block content %}
+<div class="container bongbao-title">
+  <img src="{{userdetail.headimgurl}}"/>
+  <p>Hi,{{user_data.nickname}}</p>
+</div>
+<div class="hongbao-bg">
+  <ul class="row-grid">
+    <a href="{{confhburl}}}">
+      <li>
+        <img src="/static/img/hongbao_conf.png" class="hb-img" />
+        <p>发红包</p>
+      </li>
+    </a>
+    <a href="{{hbreceivelisturl}}">
+      <li>
+        <img src="/static/img/hongbao_receive.png"  class="hb-img" />
+        <p>收到的红包</p>
+      </li>
+    </a>
+    <a href="{{hbsendlisturl}}">
+      <li>
+        <img src="/static/img/hongbao_send.png"  class="hb-img" />
+        <p>发出的红包</p>
+      </li>
+    </a>
+    <!--a href="/weixin/hbrichlist/{{enText}}/?imgurl={{userdetail.headimgurl}}&nickname={{user_data.nickname}}">
+      <li>
+        <img src="/static/img/hongbao_rich.png"  class="hb-img" />
+        <p>土豪榜</p>
+      </li>
+    </a-->
+  </ul>
+</div>
+{% endblock %}
+{% block myscript %}
+  <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <script>
+      wx.config({
+          debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          appId: '{{jsconfig.appId}}', // 必填，公众号的唯一标识
+          timestamp:{{jsconfig.timestamp}} , // 必填，生成签名的时间戳
+          nonceStr: '{{jsconfig.nonceStr}}', // 必填，生成签名的随机串
+          signature: '{{jsconfig.signature}}',// 必填，签名，见附录1
+          jsApiList: ['hideMenuItems'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+      //alert(location.href.split('#')[0]);
+      wx.ready(function(){
+          //wx.hideOptionMenu();
+          //wx.showAllNonBaseMenuItem();
+          wx.hideMenuItems({
+              menuList: ['menuItem:share:timeline','menuItem:share:appMessage','menuItem:share:qq','menuItem:share:weiboApp','menuItem:favorite','menuItem:share:facebook','menuItem:share:QZone','menuItem:copyUrl']
+          })
+          //wx.hideAllNonBaseMenuItem();
+      });
+  </script>
+{% endblock %}  
+
+
+
+

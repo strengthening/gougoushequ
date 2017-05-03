@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}我发出的红包{% endblock %}
+
+{% block content %}
+<div class="container bongbao-title">
+	<img src="{{imgurl}}"/>
+	<p>{{nickname}}共发出</p>
+	<h1 class="hbreceivesum">{{hbssum}} Ð</h1>
+	<p>共发出{{hbsnum}}个多吉红包</p>
+</div>
+<div class="container">
+
+	<ul class="sendhblist">
+		{% if hbsnum %}
+			{% for myhb in mysendhbs %}
+				<li>
+					<a href="/weixin/hongbao/{{myhb.enhbid}}/?ismine=0">
+						<div>
+							{% ifequal myhb.hbtype 'temporary' %}
+							<h1>限时红包</h1>
+							{% else %}
+							<h1>拼手气红包</h1>
+							{% endifequal %}
+							<p>{{myhb.hbtime}}</p>					
+						</div>
+						<div class="rgtxt">
+							<h1>{{myhb.hbsum}}&nbsp;Ð</h1>
+							<span>{{myhb.hbdusednum}}</span>/
+							<span>{{myhb.hbnum}}</span>						
+						</div>
+					</a>					
+				</li>
+			{%endfor%}
+		{% else %}
+			<p>暂无红包记录</p>
+		{% endif %}
+	</ul>
+</div>
+{% endblock %}
+{% block myscript %}
+  <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <script>
+      wx.config({
+          debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          appId: '{{jsconfig.appId}}', // 必填，公众号的唯一标识
+          timestamp:{{jsconfig.timestamp}} , // 必填，生成签名的时间戳
+          nonceStr: '{{jsconfig.nonceStr}}', // 必填，生成签名的随机串
+          signature: '{{jsconfig.signature}}',// 必填，签名，见附录1
+          jsApiList: ['hideMenuItems'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+      //alert(location.href.split('#')[0]);
+      wx.ready(function(){
+          //wx.hideOptionMenu();
+          //wx.showAllNonBaseMenuItem();
+          wx.hideMenuItems({
+              menuList: ['menuItem:share:timeline','menuItem:share:appMessage','menuItem:share:qq','menuItem:share:weiboApp','menuItem:favorite','menuItem:share:facebook','menuItem:share:QZone','menuItem:copyUrl']
+          })
+      });
+  </script>
+{% endblock %}
