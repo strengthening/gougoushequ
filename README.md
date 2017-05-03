@@ -1,5 +1,7 @@
-require these packages
-    django
+#gougoushequ “吾爱doge”微信公众账号源码
+
+##需要安装的package
+    django</br>
     MySQL-python
     requests
     mod_wsgi        #apt-get install libapache2-mod-wsgi
